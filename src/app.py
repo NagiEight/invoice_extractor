@@ -72,7 +72,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         raise ValueError("GEMINI_API_KEY environment variable is missing.")
 
     client = genai.Client(api_key=api_key)
-    vision_adapter = GeminiVisionAdapter(client=client)
+    vision_adapter = GeminiVisionAdapter(client=client,model="gemini-3.5-flash-lite")
 
     conn = sqlite3.connect("invoices.db", check_same_thread=False)
     db_url = "libsql://invoicedb-nagieight.aws-ap-northeast-1.turso.io"
