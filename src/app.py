@@ -9,8 +9,8 @@ from typing import Any
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from google import genai
-from invoice_storage.infrastructure.turso_invoice_repository import TursoInvoiceRepository
 from pydantic import BaseModel
 
 from cloud_storage.domain.entities import R2HttpConfig
@@ -19,6 +19,9 @@ from core.invoice_service import InvoiceService, NotAnInvoiceError
 from invoice_storage.domain.entities import Invoice
 from invoice_storage.infrastructure.sqlite_invoice_repository import (
     SQLiteInvoiceRepository,
+)
+from invoice_storage.infrastructure.turso_invoice_repository import (
+    TursoInvoiceRepository,
 )
 from vision.infrastructure.gemini_vision_adapter import GeminiVisionAdapter
 
@@ -102,7 +105,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 app = FastAPI(title="Invoice Extractor API", lifespan=lifespan)
-
+app.mount("/", StaticFiles(directory="src/presentation/dist", html=True), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
