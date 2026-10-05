@@ -105,7 +105,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 app = FastAPI(title="Invoice Extractor API", lifespan=lifespan)
-app.mount("/", StaticFiles(directory="src/presentation", html=True), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -154,3 +153,5 @@ async def get_invoice(invoice_number: str) -> InvoiceResponse:
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found.")
     return InvoiceResponse.from_entity(invoice)
+
+app.mount("/", StaticFiles(directory="src/presentation", html=True), name="static")
