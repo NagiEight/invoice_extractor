@@ -105,7 +105,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 app = FastAPI(title="Invoice Extractor API", lifespan=lifespan)
-app.mount("/", StaticFiles(directory="src/presentation/dist", html=True), name="static")
+app.mount("/", StaticFiles(directory="src/presentation", html=True), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
