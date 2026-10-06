@@ -1,0 +1,1 @@
+"C:\Users\nagi8\All\dev\repos\invoice_extractor\src\app.py"

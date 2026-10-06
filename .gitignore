@@ -13,3 +13,8 @@ uv.lock
 
 #data folder
 data/
+
+# util scripts
+output.txt
+inspector.py
+main.py
